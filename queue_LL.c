@@ -7,47 +7,43 @@ struct node
  int data;
  struct node *next;
 };
-void insertbegan(struct node *);
-void insertmid(struct node *);
-void display(struct node *);
+void insertAtbegin(struct node *);
+void insertInBetween(struct node *);
+void deleteFirstnode(struct node*);
+void deleteLastNode(struct node*);
+void display(struct node*);
 struct node *head=NULL;
 int main()
 {
 	int choice;
 	while(1)
 	{
-	 
-	 printf("1: enter the node at begining\n 2: add node bw two nodes\n 3:add node at the last\n 4: dlt front\n 5:dlt middle\n 6:dlt at end\n7: Display\n");
+
+	 printf("Press 1 to enter the node at the beginning of List\nPress 2 to add the node somewhere in the middle\nPress 3 to insert the node at the end of list\nPress 4 to delete the node from the beginning of the list\nPress 5 to delete the node from somewhere between the linked list \nPress 6 to delete the last node from linked list\nPress 7 to display Linked List\n");
 	 printf("enter choice");
 	 scanf("%d",&choice);
 	 switch(choice)
 	 {
-	case 1: 
-	      insertbegan(head);
+	case 1:
+	      insertAtbegin(head);
 		break;
 	case 2:
-	     insertmid(head); 
+	     insertInbetween(head);
 	     break;
 	case 3:
 	     insertend(head);
+
 	     break;
+	case 4:
+        deleteFirstnode(head);
+        break;
+    case 6:
+        deleteLastnode(head);
 	case 7:
 	     display(head);
 	     break;
-
-
-	 
-	 
-	 }
-	
-	
-	}
-
-
-
-
-
-
+}
+}
 }
 
 void insertend(struct node *temp)
@@ -60,7 +56,7 @@ void insertend(struct node *temp)
 	if(temp==NULL)
 	{
 	head=t;
-	t->next=NULL;
+	t->next=head;
 	}
 	else
 	{
@@ -73,26 +69,33 @@ void insertend(struct node *temp)
 	}
 
 }
-	
-	
-	
-void insertbegan(struct node *temp)
+
+
+
+void insertAtbegin(struct node *temp)
 {       int y;
 	struct node *t;
  	t=(struct node *)malloc(sizeof(struct node));
 	printf("enter the value that you want to insert\n");
 	scanf("%d",&y);
 	t->data=y;
-	
+
 	if(temp==NULL)
 	{
 	 head=t;
-	 t->next=NULL;
+	 t->next=head;
 	}
 	else
 	{
-	t->next=head;
-	head=t;
+	    struct node *t2=temp;
+
+while(t2->next!=head){
+    t2=t2->next;
+
+}
+t->next=head;
+head=t;
+t2->next=head;
 	}
 
 
@@ -100,7 +103,7 @@ void insertbegan(struct node *temp)
 }
 
 
-void insertmid(struct node *temp)
+void insertInbetween(struct node *temp)
 {
      int n,i=1;
      printf("enter the value after which you want to enter the node");
@@ -119,17 +122,60 @@ void insertmid(struct node *temp)
 }
 
 void display( struct node *temp)
-{   
-    
-    while(temp!=NULL) 
+{
+
+    while(1)
     {
-	    printf("%d\n",temp->data);
-	    temp=temp->next;
+	    if(temp->next==head){
+            printf("%d\n",temp->data);
+            break;
+	    }
+else{
+    printf("%d\n",temp->data);
+   temp=temp->next;
+}
 
   }
 
+}
+void deleteFirstnode(struct node*temp){
+if(temp==NULL){
+    printf("Linked List is empty");
+}
+ else if(temp->next==head){
+    temp->next=NULL;
+    head=NULL;
+                          }
+ else {
 
+    struct node *t2;
+    t2=temp;
+    while(t2->next!=head){
+        t2=t2->next;
 
+    }
+    head=temp->next;
+    t2->next=head;
+ }
+}
+void deleteLastnode(struct node* temp){
+if(temp==NULL){
+    printf("Linked List is empty");
+}
+ else if(temp->next==head){
+    temp->next=NULL;
+    head=NULL;
+                          }
+else{
 
+    while(temp->next->next==head){
+        temp=temp->next;
+                                 }
+
+temp->next->next=NULL;
+temp->next=head;
 
 }
+
+}
+
