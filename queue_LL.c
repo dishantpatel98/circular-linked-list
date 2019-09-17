@@ -11,6 +11,7 @@ void insertAtbegin(struct node *);
 void insertInBetween(struct node *);
 void deleteFirstnode(struct node*);
 void deleteLastNode(struct node*);
+void deleteInbetween(struct node*);
 void display(struct node*);
 struct node *head=NULL;
 int main()
@@ -26,19 +27,28 @@ int main()
 	 {
 	case 1:
 	      insertAtbegin(head);
+	      printf("done");
 		break;
 	case 2:
 	     insertInbetween(head);
+	     printf("done");
 	     break;
 	case 3:
 	     insertend(head);
-
+             printf("done");
 	     break;
 	case 4:
         deleteFirstnode(head);
+	printf("done");
         break;
+	case 5:
+	     deleteInbetween(head);
+	     printf("done");
+	     break;
     case 6:
         deleteLastnode(head);
+	printf("done");
+	break;
 	case 7:
 	     display(head);
 	     break;
@@ -160,7 +170,7 @@ if(temp==NULL){
 }
 void deleteLastnode(struct node* temp){
 if(temp==NULL){
-    printf("Linked List is empty");
+    printf("Linked List is empty\n");
 }
  else if(temp->next==head){
     temp->next=NULL;
@@ -168,7 +178,7 @@ if(temp==NULL){
                           }
 else{
 
-    while(temp->next->next==head){
+    while(temp->next->next!=head){
         temp=temp->next;
                                  }
 
@@ -178,4 +188,31 @@ temp->next=head;
 }
 
 }
+void deleteInbetween(struct node*temp){
+struct node *t2;
+	if(temp==NULL)
+	printf("Linked lIst is Empty\n");
+else if(temp->next==head){
+printf("Cant delete Because only one element in the list\n");
+}
+else if(temp->next->next==head){
+printf("CAnt delete because only two  elements in the list\n ");
+}
+else{
+printf("Enter the node number which you want to delete");
+int n;
+scanf("%d",&n);
+for(int i=1;i<(n-0);i++){
+temp=temp->next;
+}
+t2=temp->next;
 
+ temp->next= temp->next->next;
+ t2->next=NULL;
+free(t2);
+
+
+}
+
+
+}
